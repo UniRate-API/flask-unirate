@@ -1,0 +1,90 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "flask-unirate"
+version = "0.1.0"
+description = "Flask extension for the UniRate currency-exchange API — Jinja filters, optional Flask-Caching integration, and current_app.unirate access."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Unirate Team" }]
+keywords = [
+    "flask",
+    "unirate",
+    "currency",
+    "exchange-rates",
+    "forex",
+    "money",
+    "fintech",
+    "jinja",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Framework :: Flask",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "flask>=2.0,<4.0",
+    "unirate-api>=1.0,<2.0",
+]
+
+[project.optional-dependencies]
+caching = ["flask-caching>=2.0,<3.0"]
+
+[project.urls]
+Homepage = "https://github.com/UniRate-API/flask-unirate"
+Repository = "https://github.com/UniRate-API/flask-unirate"
+Issues = "https://github.com/UniRate-API/flask-unirate/issues"
+Provider = "https://unirateapi.com"
+
+[dependency-groups]
+test = [
+    "pytest>=8.0,<9.0",
+    "responses>=0.25,<1.0",
+    "flask-caching>=2.0,<3.0",
+]
+lint = [
+    "ruff>=0.6,<1.0",
+]
+typing = [
+    "mypy>=1.10,<2.0",
+    "types-requests>=2.31",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["flask_unirate"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "RUF"]
+
+[tool.mypy]
+python_version = "3.9"
+disallow_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["unirate", "unirate.*", "flask_caching", "flask_caching.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
